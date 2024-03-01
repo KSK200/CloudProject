@@ -13,12 +13,12 @@ public class Dish {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
     private String name;
 
     @ManyToOne
     @JoinColumn(name = "order_id")
     private Order order;
-
 
     public Dish() {}
 

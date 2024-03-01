@@ -3,7 +3,6 @@ package com.karthik.cloudkitchenapplication.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.karthik.cloudkitchenapplication.entity.Customer;
 import com.karthik.cloudkitchenapplication.entity.Order;
 import com.karthik.cloudkitchenapplication.repository.OrderRepository;
 
@@ -15,8 +14,8 @@ public class OrderService {
     private OrderRepository orderRepository;
 
     public Order saveOrder(Order order) {
-        Customer savedCustomer = CustomerService.saveCustomer(order.getCustomer());
-        order.setCustomer(savedCustomer); // Set the saved customer to the order
+        // Customer savedCustomer = CustomerService.saveCustomer(order.getCustomer());
+        // order.setCustomer(savedCustomer); // Set the saved customer to the order
 
         return orderRepository.save(order);
     }

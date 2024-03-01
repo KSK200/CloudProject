@@ -18,11 +18,12 @@ public class OrderController {
 
     @PostMapping("/save")
     public ResponseEntity<Order> saveOrder(@RequestBody Order order) {
+        
         Order savedOrder = orderService.saveOrder(order);
         return new ResponseEntity<>(savedOrder, HttpStatus.CREATED);
     }
 
-    @GetMapping("/customer/{customerId}")
+    @GetMapping("/customer")
     public ResponseEntity<List<Order>> getOrdersByCustomerId(@PathVariable Long customerId) {
         List<Order> orders = orderService.getOrdersByCustomerId(customerId);
         return new ResponseEntity<>(orders, HttpStatus.OK);
