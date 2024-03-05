@@ -24,6 +24,12 @@ public class OrderService {
         return orderRepository.findByCustomerId(customerId);
     }
 
+    
+
+    
+    // public List<Order> getOrdersByCustomerId(Long customerId) {
+    //     return orderRepository.findOrdersByCustomerId(customerId);
+    // }
     // Other service methods as needed
 }
 

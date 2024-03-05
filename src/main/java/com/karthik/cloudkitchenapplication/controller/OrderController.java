@@ -23,12 +23,25 @@ public class OrderController {
         return new ResponseEntity<>(savedOrder, HttpStatus.CREATED);
     }
 
-    @GetMapping("/customer")
-    public ResponseEntity<List<Order>> getOrdersByCustomerId(@PathVariable Long customerId) {
-        List<Order> orders = orderService.getOrdersByCustomerId(customerId);
-        return new ResponseEntity<>(orders, HttpStatus.OK);
+    // @PostMapping("/save")
+    // public ResponseEntity<Order> createOrder(@RequestBody Order orderDTO) {
+    //     Order order = orderService.saveOrder(orderDTO);
+    //     return new ResponseEntity<>(order, HttpStatus.CREATED);
+    // }
+
+    // @GetMapping("/customer")
+    // public ResponseEntity<List<Order>> getOrdersByCustomerId(@PathVariable Long customerId) {
+    //     List<Order> orders = orderService.getOrdersByCustomerId(customerId);
+    //     return new ResponseEntity<>(orders, HttpStatus.OK);
+    // }
+
+    
+    @GetMapping("/getcustomerorderbyid/{customerId}")
+    public List<Order> getOrdersByCustomerId(@PathVariable Long customerId) {
+        return orderService.getOrdersByCustomerId(customerId);
     }
 
+    
     // Other controller methods as needed
 }
 

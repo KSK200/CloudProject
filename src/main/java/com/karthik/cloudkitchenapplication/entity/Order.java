@@ -28,74 +28,31 @@ public class Order {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "caterer_id")
+    private Caterer caterer;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Dish> dishes = new ArrayList<>();
 
     public Order(){}
 
-    public Order(Long id, LocalDate deliveryDate, int numberOfPeople, Customer customer, List<Dish> dishes) {
-        this.id = id;
-        this.deliveryDate = deliveryDate;
-        this.numberOfPeople = numberOfPeople;
-        this.customer = customer;
-        this.dishes = dishes;
+
+    public Order(Long id, LocalDate deliveryDate, int numberOfPeople, Customer customer, Caterer caterer, List<Dish> dishes) {
+    this.id = id;
+    this.deliveryDate = deliveryDate;
+    this.numberOfPeople = numberOfPeople;
+    this.customer = customer;
+    this.caterer = caterer;
+    this.dishes = dishes;
+
+    // Set the order for each dish
+    if (dishes != null) {
+        for (Dish dish : dishes) {
+            dish.setOrder(this);
+        }
     }
-    
-
-    @Override
-    public String toString() {
-        return "Order [id=" + id + ", deliveryDate=" + deliveryDate + ", numberOfPeople=" + numberOfPeople
-                + ", customer=" + customer + ", dishes=" + dishes + "]";
-    }
-
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((deliveryDate == null) ? 0 : deliveryDate.hashCode());
-        result = prime * result + numberOfPeople;
-        result = prime * result + ((customer == null) ? 0 : customer.hashCode());
-        result = prime * result + ((dishes == null) ? 0 : dishes.hashCode());
-        return result;
-    }
-
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Order other = (Order) obj;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-        if (deliveryDate == null) {
-            if (other.deliveryDate != null)
-                return false;
-        } else if (!deliveryDate.equals(other.deliveryDate))
-            return false;
-        if (numberOfPeople != other.numberOfPeople)
-            return false;
-        if (customer == null) {
-            if (other.customer != null)
-                return false;
-        } else if (!customer.equals(other.customer))
-            return false;
-        if (dishes == null) {
-            if (other.dishes != null)
-                return false;
-        } else if (!dishes.equals(other.dishes))
-            return false;
-        return true;
-    }
-
+}
 
     public Long getId() {
         return id;
@@ -129,12 +86,26 @@ public class Order {
         this.customer = customer;
     }
 
+    public Caterer getCaterer() {
+        return caterer;
+    }
+
+    public void setCaterer(Caterer caterer) {
+        this.caterer = caterer;
+    }
+
     public List<Dish> getDishes() {
         return dishes;
     }
 
     public void setDishes(List<Dish> dishes) {
         this.dishes = dishes;
+    }
+
+    @Override
+    public String toString() {
+        return "Order [id=" + id + ", deliveryDate=" + deliveryDate + ", numberOfPeople=" + numberOfPeople
+                + ", customer=" + customer + ", caterer=" + caterer + ", dishes=" + dishes + "]";
     }
 
     
