@@ -27,6 +27,9 @@ public class Caterer {
     @OneToMany(mappedBy = "caterer", cascade = CascadeType.ALL)
     private List<Order> orders = new ArrayList<>();
 
+    // @OneToMany(mappedBy = "caterer", cascade = CascadeType.ALL)
+    // private List<Review> reviews = new ArrayList<>();
+    
     public Caterer() {}
 
     public Caterer(Long id, String fullName, String email, String address, String phonenumber, String password) {
