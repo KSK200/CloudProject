@@ -13,6 +13,7 @@ public class OrderService {
     @Autowired
     private OrderRepository orderRepository;
 
+    @SuppressWarnings("null")
     public Order saveOrder(Order order) {
         // Customer savedCustomer = CustomerService.saveCustomer(order.getCustomer());
         // order.setCustomer(savedCustomer); // Set the saved customer to the order

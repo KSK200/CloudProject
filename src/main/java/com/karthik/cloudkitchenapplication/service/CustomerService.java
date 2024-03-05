@@ -17,14 +17,17 @@ public class CustomerService {
         return customerRepository.findAll();
     }
 
+    @SuppressWarnings("null")
     public Customer getCustomerById(Long id) {
         return customerRepository.findById(id).orElse(null);
     }
 
+    @SuppressWarnings("null")
     public Customer createCustomer(Customer user) {
         return customerRepository.save(user);
     }
 
+    @SuppressWarnings("null")
     public Customer updateCustomer(Long id, Customer user) {
         if (customerRepository.existsById(id)) {
             user.setId(id);
@@ -33,6 +36,7 @@ public class CustomerService {
         return null;
     }
 
+    @SuppressWarnings("null")
     public void deleteCustomer(Long id) {
         customerRepository.deleteById(id);
     }

@@ -17,14 +17,17 @@ public class CatererService {
         return catererRepository.findAll();
     }
 
+    @SuppressWarnings("null")
     public Caterer getCatererById(Long id) {
         return catererRepository.findById(id).orElse(null);
     }
 
+    @SuppressWarnings("null")
     public Caterer createCaterer(Caterer user) {
         return catererRepository.save(user);
     }
 
+    @SuppressWarnings("null")
     public Caterer updateCaterer(Long id, Caterer user) {
         if (catererRepository.existsById(id)) {
             user.setId(id);
@@ -33,6 +36,7 @@ public class CatererService {
         return null;
     }
 
+    @SuppressWarnings("null")
     public void deleteCaterer(Long id) {
         catererRepository.deleteById(id);
     }

@@ -11,6 +11,7 @@ public class DishService {
     @Autowired
     private DishRepository dishRepository;
 
+    @SuppressWarnings("null")
     public Dish saveDish(Dish dish) {
         return dishRepository.save(dish);
     }
