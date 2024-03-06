@@ -18,8 +18,8 @@ public class ReviewController {
     private ReviewService ReviewService;
 
     @GetMapping("/getall")
-    public List<Review> getAllCustomers() {
-        return ReviewService.getAllCustomers();
+    public List<Review> getAllReviews() {
+        return ReviewService.getAllReviews();
     }
 
     @PostMapping("/save")

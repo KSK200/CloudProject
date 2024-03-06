@@ -18,11 +18,8 @@ public class ReviewService {
         return reviewRepository.save(user);
     }
 
-    public List<Review> getAllCustomers() {
+    public List<Review> getAllReviews() {
         return reviewRepository.findAll();
     }
-
-
     
-
 }

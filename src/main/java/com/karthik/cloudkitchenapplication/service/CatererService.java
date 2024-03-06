@@ -11,7 +11,7 @@ import com.karthik.cloudkitchenapplication.repository.CatererRepository;
 @Service
 public class CatererService {
     @Autowired
-    private CatererRepository catererRepository;
+    private  CatererRepository catererRepository;
 
     public List<Caterer> getAllCaterers() {
         return catererRepository.findAll();
@@ -41,9 +41,6 @@ public class CatererService {
         catererRepository.deleteById(id);
     }
 
-    public static Caterer saveCaterer(Caterer caterer) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'saveCaterer'");
-    }
- 
+    
+
 }
