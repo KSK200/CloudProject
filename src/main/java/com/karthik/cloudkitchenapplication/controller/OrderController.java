@@ -13,37 +13,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/orders")
+@RequestMapping("/orders")
 public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @PostMapping("/save")
+    @PostMapping("/")
     public ResponseEntity<Order> saveOrder(@RequestBody Order order) {
         
         Order savedOrder = orderService.placeOrder(order);
         return new ResponseEntity<>(savedOrder, HttpStatus.CREATED);
     }
 
-    // @PostMapping("/save")
-    // public ResponseEntity<Order> createOrder(@RequestBody Order orderDTO) {
-    //     Order order = orderService.saveOrder(orderDTO);
-    //     return new ResponseEntity<>(order, HttpStatus.CREATED);
-    // }
-
-    // @GetMapping("/customer")
-    // public ResponseEntity<List<Order>> getOrdersByCustomerId(@PathVariable Long customerId) {
-    //     List<Order> orders = orderService.getOrdersByCustomerId(customerId);
-    //     return new ResponseEntity<>(orders, HttpStatus.OK);
-    // }
-
-    
-    // @GetMapping("/getcustomerorderbyid/{customerId}")
-    // public List<Order> getOrdersByCustomerId(@PathVariable Long customerId) {
-    //     return orderService.getOrdersByCustomerId(customerId);
-    // }
-
-    @GetMapping("/getcustomerorderbyid/{customerId}")
+    @GetMapping("/{customerId}")
     public ResponseEntity<List<OrderDTO>> getOrdersByCustomerId(@PathVariable Long customerId) {
         List<Order> orders = orderService.getOrdersByCustomerId(customerId);
         if (orders.isEmpty()) {
@@ -64,7 +46,7 @@ public class OrderController {
 
         return ResponseEntity.ok(orderDTOs);
     }
-    @GetMapping("/getallorders")
+    @GetMapping("/")
     public ResponseEntity<List<OrderDTO>> getAllOrders() {
         List<Order> orders = orderService.getALLOrders();
         if (orders.isEmpty()) {

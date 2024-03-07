@@ -6,27 +6,27 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.karthik.cloudkitchenapplication.entity.PaymentDetails;
-import com.karthik.cloudkitchenapplication.repository.PaymentDetailsRepository;
+import com.karthik.cloudkitchenapplication.entity.AccountDetails;
+import com.karthik.cloudkitchenapplication.repository.AccountDetailsRepository;
 
 
 
 @Service
-public class PaymentDetailsService {
+public class AccountDetailsService {
 
     @Autowired
-    private PaymentDetailsRepository pDetailsRepository;
+    private AccountDetailsRepository pDetailsRepository;
 
     @SuppressWarnings("null")
-    public PaymentDetails createPaymentDetails(PaymentDetails user) {
+    public AccountDetails createPaymentDetails(AccountDetails user) {
         return pDetailsRepository.save(user);
     }
 
-    public List<PaymentDetails> getAllPaymentDetails() {
+    public List<AccountDetails> getAllPaymentDetails() {
         return pDetailsRepository.findAll();
     }
     
-    public PaymentDetails findByCatererID(Long catererId) {
+    public AccountDetails findByCatererID(Long catererId) {
         return pDetailsRepository.findByCatererId(catererId);
     }
 

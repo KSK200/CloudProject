@@ -20,27 +20,27 @@ public class CatererController {
     @Autowired
     private CatererService userService;
 
-    @GetMapping("/getallcaterers")
+    @GetMapping("/")
     public List<Caterer> getAllCaterers() {
         return userService.getAllCaterers();
     }
 
-    @GetMapping("/getcatererbyid/{id}")
+    @GetMapping("/{id}")
     public Caterer getCatererById(@PathVariable Long id) {
         return userService.getCatererById(id);
     }
 
-    @PostMapping("/savecaterer")
+    @PostMapping("/")
     public Caterer createCaterer(@RequestBody Caterer user) {
         return userService.createCaterer(user);
     }
 
-    @PutMapping("/updatecaterer/{id}")
+    @PutMapping("/{id}")
     public Caterer updateCaterer(@PathVariable Long id, @RequestBody Caterer user) {
         return userService.updateCaterer(id, user);
     }
 
-    @DeleteMapping("/deletecaterer/{id}")
+    @DeleteMapping("/{id}")
     public void deleteCaterer(@PathVariable Long id) {
         userService.deleteCaterer(id);
     }

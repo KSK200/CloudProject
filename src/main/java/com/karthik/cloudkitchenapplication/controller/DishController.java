@@ -18,24 +18,18 @@ public class DishController {
     @Autowired
     private DishService dishService;
 
-    @PostMapping("/save")
+    @PostMapping("/")
     public ResponseEntity<Dish> saveDish(@RequestBody Dish dish) {
         Dish savedDish = dishService.saveDish(dish);
         
         return new ResponseEntity<>(savedDish, HttpStatus.CREATED);
     }
 
-    
-    // @GetMapping("/getalldishes")
-    // public List<Dish> getAllDishes() {
-    //     return dishService.getAllDishes();
-    // }
-
     public DishController(DishService dishService) {
         this.dishService = dishService;
     }
 
-    @GetMapping("/getalldishes")
+    @GetMapping("/")
     public List<DishDTO> getAllDishes() {
         List<Dish> dishes = dishService.getAllDishes();
         return convertToDTOs(dishes);

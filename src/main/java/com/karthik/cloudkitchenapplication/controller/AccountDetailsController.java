@@ -8,34 +8,29 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.karthik.cloudkitchenapplication.DTO.PaymentDetailsDTO;
-import com.karthik.cloudkitchenapplication.entity.PaymentDetails;
-import com.karthik.cloudkitchenapplication.service.PaymentDetailsService;
+import com.karthik.cloudkitchenapplication.entity.AccountDetails;
+import com.karthik.cloudkitchenapplication.service.AccountDetailsService;
 
 
 @RestController
-@RequestMapping("/payment")
-public class PaymentDetailsController {
+@RequestMapping("/Account")
+public class AccountDetailsController {
     @Autowired
-    private PaymentDetailsService userService;
+    private AccountDetailsService userService;
 
-    @GetMapping("/getallpayments")
-    public List<PaymentDetails> getAllPayment() {
+    @GetMapping("/")
+    public List<AccountDetails> getAllPayment() {
         return userService.getAllPaymentDetails();
     }
     
-    @PostMapping("/save")
-    public PaymentDetails createPaymentDetails(@RequestBody PaymentDetails user) {
+    @PostMapping("/")
+    public AccountDetails createPaymentDetails(@RequestBody AccountDetails user) {
         return userService.createPaymentDetails(user);
     }
-    
-    // @GetMapping("/getbyid/{catererId}")
-    // public List<PaymentDetails> getOrdersByCustomerId(@PathVariable Long catererId) {
-    //     return userService.findByCatererID(catererId);
-    // }
 
-     @GetMapping("/getbyid/{id}")
+     @GetMapping("/{id}")
     public ResponseEntity<PaymentDetailsDTO> getPaymentDetailsById(@PathVariable Long id) {
-        PaymentDetails paymentDetails = userService.findByCatererID(id);
+        AccountDetails paymentDetails = userService.findByCatererID(id);
         if (paymentDetails == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

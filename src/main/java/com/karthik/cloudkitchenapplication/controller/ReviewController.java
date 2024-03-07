@@ -17,12 +17,12 @@ public class ReviewController {
     @Autowired
     private ReviewService ReviewService;
 
-    @GetMapping("/getall")
+    @GetMapping("/")
     public List<Review> getAllReviews() {
         return ReviewService.getAllReviews();
     }
 
-    @PostMapping("/save")
+    @PostMapping("/")
     public Review createrReview(@RequestBody Review user) {
         return ReviewService.createReview(user);
     }
