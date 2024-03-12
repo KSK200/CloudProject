@@ -13,7 +13,6 @@ public class OrderStatusService {
     @Autowired
     private OrderStatusRepository orderStatusRepository;
 
-    @SuppressWarnings("null")
     public OrderStatus createOrderStatus(OrderStatus orderStatus) {
         // Additional logic if needed
         return orderStatusRepository.save(orderStatus);
@@ -42,6 +41,11 @@ public class OrderStatusService {
         } else {
             // Handle case when OrderStatus for the given orderId does not exist
         }
+    }
+
+    public Optional<OrderStatus> getOrderStatusByOrderId(Long orderId) {
+        // TODO Auto-generated method stub
+        return orderStatusRepository.findByOrderId(orderId);
     }
 
     // Other service methods as needed

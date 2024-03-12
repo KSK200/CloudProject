@@ -1,18 +1,22 @@
 package com.THBS.cloudkitchenapplication.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.THBS.cloudkitchenapplication.DTO.PaymentStatusDTO;
 import com.THBS.cloudkitchenapplication.entity.PaymentStatus;
 import com.THBS.cloudkitchenapplication.service.PaymentStatusService;
 
 @RestController
-@RequestMapping("/payment")
+@RequestMapping("/paymentstatus")
 public class PaymentStatusController {
 
     @Autowired
@@ -38,5 +42,25 @@ public class PaymentStatusController {
 
         return ResponseEntity.ok(updatedStatus);
     }
+
+    @GetMapping("/{orderId}")
+    public ResponseEntity<PaymentStatusDTO> getPaymentStatusByOrderId(@PathVariable Long orderId) {
+    Optional<PaymentStatus> paymentStatusOptional = paymentStatusService.getPaymentStatusByOrderId(orderId);
+    
+    if (paymentStatusOptional.isEmpty()) {
+        return ResponseEntity.notFound().build();
+    }
+
+    PaymentStatus paymentStatus = paymentStatusOptional.get();
+    PaymentStatusDTO paymentStatusDTO = new PaymentStatusDTO();
+    paymentStatusDTO.setId(paymentStatus.getId());
+    paymentStatusDTO.setOrderId(paymentStatus.getOrder().getId());
+    paymentStatusDTO.setStatus(paymentStatus.getStatus());
+
+    return ResponseEntity.ok(paymentStatusDTO);
+}
+
+
+
 }
 

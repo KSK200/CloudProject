@@ -34,5 +34,10 @@ public class PaymentStatusService {
         }
     }
 
+    public Optional<PaymentStatus> getPaymentStatusByOrderId(Long orderId) {
+        // TODO Auto-generated method stub
+        return paymentStatusRepository.findByOrderId(orderId);
+    }
+
     // Other service methods as needed
 }
