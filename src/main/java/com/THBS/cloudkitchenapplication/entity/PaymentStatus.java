@@ -21,15 +21,14 @@ public class PaymentStatus {
 
     private String status = "not completed";
 
-    private double price = 0.0;
+    // private double price = 0.0;
 
     public PaymentStatus() {}
 
-    public PaymentStatus(Long id, Order order, String status, double price) {
+    public PaymentStatus(Long id, Order order, String status) {
         this.id = id;
         this.order = order;
         this.status = status;
-        this.price = price;
     }
 
     public Long getId() {
@@ -56,17 +55,9 @@ public class PaymentStatus {
         this.status = status;
     }
 
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
     @Override
     public String toString() {
-        return "PaymentStatus [id=" + id + ", order=" + order + ", status=" + status + ", price=" + price + "]";
+        return "PaymentStatus [id=" + id + ", order=" + order + ", status=" + status + "]";
     }
 
     

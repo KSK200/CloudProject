@@ -35,7 +35,6 @@ public class Order {
     @JoinColumn(name = "caterer_id")
     private Caterer caterer;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Dish> dishes = new ArrayList<>();
 

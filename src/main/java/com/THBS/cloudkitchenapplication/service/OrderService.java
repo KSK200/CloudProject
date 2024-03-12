@@ -27,7 +27,6 @@ public class OrderService {
     @Autowired
     private PaymentStatusRepository paymentStatusRepository;
 
-    @SuppressWarnings("null")
     public Order placeOrder(Order order) {
         Order savedOrder = orderRepository.save(order);
 

@@ -1,5 +1,7 @@
 package com.THBS.cloudkitchenapplication.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,6 +18,7 @@ public class Dish {
     
     private String name;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "order_id")
     private Order order;

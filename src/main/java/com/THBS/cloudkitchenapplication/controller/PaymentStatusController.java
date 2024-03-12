@@ -31,7 +31,7 @@ public class PaymentStatusController {
 
         // Update the payment status fields
         existingPaymentStatus.setStatus(updatedPaymentStatus.getStatus());
-        existingPaymentStatus.setPrice(updatedPaymentStatus.getPrice());
+        // existingPaymentStatus.setPrice(updatedPaymentStatus.getPrice());
 
         // Save the updated paymentStatus
         PaymentStatus updatedStatus = paymentStatusService.createPaymentStatus(existingPaymentStatus);

@@ -43,14 +43,6 @@ public class OrderStatusService {
             // Handle case when OrderStatus for the given orderId does not exist
         }
     }
-    // public List<OrderStatus> findByOrderId(Long orderId) {
-    //     return OrderStatusRepository.findByOrderId(orderId);
-    // }
-
-    // public Optional<OrderStatus> getOrderById(Long orderStatusId) {
-    //     // TODO Auto-generated method stub
-    //     throw new UnsupportedOperationException("Unimplemented method 'getOrderById'");
-    // }
 
     // Other service methods as needed
 }
