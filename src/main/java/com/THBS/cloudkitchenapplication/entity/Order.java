@@ -10,6 +10,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.Data;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
+@Data
 @Table(name = "orders")
 public class Order {
     @Id
@@ -46,109 +48,6 @@ public class Order {
     @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
     private PaymentStatus paymentStatus;
 
-
-    public Order(){}
-
-
-    public Order(Long id, LocalDate deliveryDate, int numberOfPeople, Customer customer, Caterer caterer,
-            List<Dish> dishes, OrderStatus orderStatus, PaymentStatus paymentStatus) {
-        this.id = id;
-        this.deliveryDate = deliveryDate;
-        this.numberOfPeople = numberOfPeople;
-        this.customer = customer;
-        this.caterer = caterer;
-        this.dishes = dishes;
-        this.orderStatus = orderStatus;
-        this.paymentStatus = paymentStatus;
-    }
-
-
-    public Long getId() {
-        return id;
-    }
-
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-
-    public LocalDate getDeliveryDate() {
-        return deliveryDate;
-    }
-
-
-    public void setDeliveryDate(LocalDate deliveryDate) {
-        this.deliveryDate = deliveryDate;
-    }
-
-
-    public int getNumberOfPeople() {
-        return numberOfPeople;
-    }
-
-
-    public void setNumberOfPeople(int numberOfPeople) {
-        this.numberOfPeople = numberOfPeople;
-    }
-
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-
-    public Caterer getCaterer() {
-        return caterer;
-    }
-
-
-    public void setCaterer(Caterer caterer) {
-        this.caterer = caterer;
-    }
-
-
-    public List<Dish> getDishes() {
-        return dishes;
-    }
-
-
-    public void setDishes(List<Dish> dishes) {
-        this.dishes = dishes;
-    }
-
-
-    public OrderStatus getOrderStatus() {
-        return orderStatus;
-    }
-
-
-    public void setOrderStatus(OrderStatus orderStatus) {
-        this.orderStatus = orderStatus;
-    }
-
-
-    public PaymentStatus getPaymentStatus() {
-        return paymentStatus;
-    }
-
-
-    public void setPaymentStatus(PaymentStatus paymentStatus) {
-        this.paymentStatus = paymentStatus;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Order [id=" + id + ", deliveryDate=" + deliveryDate + ", numberOfPeople=" + numberOfPeople
-                + ", customer=" + customer + ", caterer=" + caterer + ", dishes=" + dishes + ", orderStatus="
-                + orderStatus + ", paymentStatus=" + paymentStatus + "]";
-    }
 
 
     // Constructors, getters, and setters

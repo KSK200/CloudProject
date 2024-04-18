@@ -2,6 +2,8 @@ package com.THBS.cloudkitchenapplication.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.THBS.cloudkitchenapplication.entity.Customer;
@@ -25,10 +27,20 @@ public class CustomerController {
         return userService.getCustomerById(id);
     }
 
-    @PostMapping("/")
-    public Customer createCustomer(@RequestBody Customer user) {
-        return userService.createCustomer(user);
+    // @PostMapping("/")
+    // public Customer createCustomer(@RequestBody Customer user) {
+    //     return userService.createCustomer(user);
+    // }
+    @PostMapping("/signup")
+    public ResponseEntity<String> signUp(@RequestBody Customer user) {
+        if (userService.existsByUsername(user.getUsername())) {
+            return new ResponseEntity<>("Username already exists", HttpStatus.BAD_REQUEST);
+        }
+
+        userService.createCustomer(user);
+        return new ResponseEntity<>("User signed up successfully!", HttpStatus.CREATED);
     }
+
 
     @PutMapping("/{id}")
     public Customer updateCustomer(@PathVariable Long id, @RequestBody Customer user) {

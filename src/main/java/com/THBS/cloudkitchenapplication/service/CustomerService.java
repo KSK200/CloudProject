@@ -24,6 +24,7 @@ public class CustomerService {
 
     @SuppressWarnings("null")
     public Customer createCustomer(Customer user) {
+        user.setRole("Customer");
         return customerRepository.save(user);
     }
 
@@ -41,9 +42,12 @@ public class CustomerService {
         customerRepository.deleteById(id);
     }
 
-    public static Customer saveCustomer(Customer customer) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'saveCustomer'");
+    // public static Customer saveCustomer(Customer customer) {
+    //     // TODO Auto-generated method stub
+    //     throw new UnsupportedOperationException("Unimplemented method 'saveCustomer'");
+    // }
+
+    public boolean existsByUsername(String username) {
+        return customerRepository.findByUsername(username) != null;
     }
-    
 }

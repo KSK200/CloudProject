@@ -7,8 +7,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.Data;
 
 @Entity
+@Data
 @Table(name = "order_status")
 public class OrderStatus {
     @Id
@@ -22,61 +24,6 @@ public class OrderStatus {
     private String status = "pending";
 
     private double price = 0.0;
-    
-    public OrderStatus() {}
-
-    public OrderStatus(Long id, Order order, String status, double price) {
-        this.id = id;
-        this.order = order;
-        this.status = status;
-        this.price = price;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public void updateStatus(String status) {
-        this.status = status;
-    }
-    
-    public void updatePrice(double price) {
-        this.price = price;
-    }
-    
-
-    @Override
-    public String toString() {
-        return "OrderStatus [id=" + id + ", order=" + order + ", status=" + status + ", price=" + price + "]";
-    }
 
     
     // Constructors, getters, and setters

@@ -7,5 +7,5 @@ import com.THBS.cloudkitchenapplication.entity.Customer;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer,Long>{
-    
+    Customer findByUsername(String username);
 }

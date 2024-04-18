@@ -24,6 +24,7 @@ public class CatererService {
 
     @SuppressWarnings("null")
     public Caterer createCaterer(Caterer user) {
+        user.setRole("Caterer");
         return catererRepository.save(user);
     }
 
@@ -39,6 +40,10 @@ public class CatererService {
     @SuppressWarnings("null")
     public void deleteCaterer(Long id) {
         catererRepository.deleteById(id);
+    }
+
+    public boolean existsByUsername(String username) {
+        return catererRepository.findByUsername(username) != null;
     }
 
     

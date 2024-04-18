@@ -19,12 +19,14 @@ public class OrderController {
     private OrderService orderService;
 
     @PostMapping("/")
-    public ResponseEntity<Order> saveOrder(@RequestBody Order order) {
-        
+    public ResponseEntity<String> saveOrder(@RequestBody Order order) {
         Order savedOrder = orderService.placeOrder(order);
-        return new ResponseEntity<>(savedOrder, HttpStatus.CREATED);
+        if (savedOrder == null) {
+            return new ResponseEntity<>("Failed to place order", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>("Order has been successfully placed", HttpStatus.CREATED);
     }
-
+    
     @GetMapping("/{customerId}")
     public ResponseEntity<List<OrderDTO>> getOrdersByCustomerId(@PathVariable Long customerId) {
         List<Order> orders = orderService.getOrdersByCustomerId(customerId);

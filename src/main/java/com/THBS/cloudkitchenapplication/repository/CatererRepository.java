@@ -7,5 +7,7 @@ import com.THBS.cloudkitchenapplication.entity.Caterer;
 
 @Repository
 public interface CatererRepository extends JpaRepository<Caterer,Long>{
+
+    Caterer findByUsername(String username);
     
 }

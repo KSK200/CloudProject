@@ -3,6 +3,8 @@ package com.THBS.cloudkitchenapplication.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,16 +32,26 @@ public class CatererController {
         return userService.getCatererById(id);
     }
 
-    @PostMapping("/")
-    public Caterer createCaterer(@RequestBody Caterer user) {
-        return userService.createCaterer(user);
+    @PostMapping("/signup")
+    public ResponseEntity<String> signUp(@RequestBody Caterer user) {
+        if (userService.existsByUsername(user.getUsername())) {
+            return new ResponseEntity<>("Username already exists", HttpStatus.BAD_REQUEST);
+        }
+
+        userService.createCaterer(user);
+        return new ResponseEntity<>("User signed up successfully!", HttpStatus.CREATED);
     }
+
 
     @PutMapping("/{id}")
-    public Caterer updateCaterer(@PathVariable Long id, @RequestBody Caterer user) {
-        return userService.updateCaterer(id, user);
+    public ResponseEntity<String> updateCaterer(@PathVariable Long id, @RequestBody Caterer user) {
+        Caterer updatedCaterer = userService.updateCaterer(id, user);
+        if (updatedCaterer == null) {
+            return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>("User details updated successfully!", HttpStatus.OK);
     }
-
+    
     @DeleteMapping("/{id}")
     public void deleteCaterer(@PathVariable Long id) {
         userService.deleteCaterer(id);
