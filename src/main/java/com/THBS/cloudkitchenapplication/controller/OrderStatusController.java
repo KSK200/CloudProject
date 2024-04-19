@@ -18,16 +18,19 @@ import com.THBS.cloudkitchenapplication.service.OrderStatusService;
 @RestController
 @RequestMapping("/orderstatus")
 public class OrderStatusController {
-    
+
     @Autowired
     private OrderStatusService orderStatusService;
 
     @PutMapping("/{orderId}")
-    public ResponseEntity<OrderStatus> updateOrderStatus(@PathVariable Long orderId, @RequestBody OrderStatus updatedOrderStatus) {
+    public ResponseEntity<String> updateOrderStatus(@PathVariable Long orderId,
+            @RequestBody OrderStatus updatedOrderStatus) {
         // Check if the orderStatusId exists
+        String successMessage = "";
         Optional<OrderStatus> existingOrderStatusOptional = orderStatusService.findByOrderId(orderId);
         if (!existingOrderStatusOptional.isPresent()) {
-            return ResponseEntity.notFound().build();
+            successMessage = "No orders found with ID: " + orderId;
+              return ResponseEntity.ok(successMessage);
         }
 
         // Get the existing orderStatus
@@ -40,26 +43,27 @@ public class OrderStatusController {
         // Save the updated orderStatus
         OrderStatus updatedStatus = orderStatusService.createOrderStatus(existingOrderStatus);
 
-        return ResponseEntity.ok(updatedStatus);
+        successMessage = "Order status and price updated successfully";
+        System.out.println(successMessage); // Print the success message
+        return ResponseEntity.ok(successMessage);
     }
 
     @GetMapping("/{orderId}")
     public ResponseEntity<OrderStatusDTO> getOrderStatusByOrderId(@PathVariable Long orderId) {
-    Optional<OrderStatus> orderStatusOptional = orderStatusService.getOrderStatusByOrderId(orderId);
-    
-    if (orderStatusOptional.isEmpty()) {
-        return ResponseEntity.notFound().build();
+        Optional<OrderStatus> orderStatusOptional = orderStatusService.getOrderStatusByOrderId(orderId);
+
+        if (orderStatusOptional.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        OrderStatus orderStatus = orderStatusOptional.get();
+        OrderStatusDTO orderStatusDTO = new OrderStatusDTO();
+        orderStatusDTO.setId(orderStatus.getId());
+        orderStatusDTO.setOrderId(orderStatus.getOrder().getId());
+        orderStatusDTO.setStatus(orderStatus.getStatus());
+        orderStatusDTO.setPrice(orderStatus.getPrice());
+
+        return ResponseEntity.ok(orderStatusDTO);
     }
 
-    OrderStatus orderStatus = orderStatusOptional.get();
-    OrderStatusDTO orderStatusDTO = new OrderStatusDTO();
-    orderStatusDTO.setId(orderStatus.getId());
-    orderStatusDTO.setOrderId(orderStatus.getOrder().getId());
-    orderStatusDTO.setStatus(orderStatus.getStatus());
-    orderStatusDTO.setPrice(orderStatus.getPrice());
-
-    return ResponseEntity.ok(orderStatusDTO);
 }
-
-}
-

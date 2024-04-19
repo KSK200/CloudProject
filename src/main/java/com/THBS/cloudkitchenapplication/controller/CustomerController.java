@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.THBS.cloudkitchenapplication.DTO.OrderDetailsDTO;
 import com.THBS.cloudkitchenapplication.entity.Customer;
 import com.THBS.cloudkitchenapplication.service.CustomerService;
 
@@ -50,5 +51,10 @@ public class CustomerController {
     @DeleteMapping("/{id}")
     public void deleteCustomer(@PathVariable Long id) {
         userService.deleteCustomer(id);
+    }
+
+    @GetMapping("/orders/{orderId}")
+    public List<OrderDetailsDTO> getOrderDetails(@PathVariable Long orderId) {
+        return userService.getOrderDetails(orderId);
     }
 }

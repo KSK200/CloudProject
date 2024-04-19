@@ -29,6 +29,4 @@ public class Review {
     private int rating;
     private LocalDateTime reviewDate;
 
-
-    
 }

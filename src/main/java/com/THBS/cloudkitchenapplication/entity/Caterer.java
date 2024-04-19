@@ -3,6 +3,8 @@ package com.THBS.cloudkitchenapplication.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -28,9 +30,11 @@ public class Caterer {
     private String username;
     private String password;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "caterer", cascade = CascadeType.ALL)
     private List<Order> orders = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "caterer")
     private List<AccountDetails> paymentDetails;
 

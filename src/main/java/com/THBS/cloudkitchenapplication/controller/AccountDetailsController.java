@@ -24,8 +24,14 @@ public class AccountDetailsController {
     }
     
     @PostMapping("/")
-    public AccountDetails createPaymentDetails(@RequestBody AccountDetails user) {
-        return userService.createPaymentDetails(user);
+    public ResponseEntity<String> createPaymentDetails(@RequestBody AccountDetails accountDetails) {
+        // Assuming userService.createPaymentDetails returns the created account details
+        AccountDetails createdAccountDetails = userService.createPaymentDetails(accountDetails);
+        if (createdAccountDetails != null) {
+            return ResponseEntity.status(HttpStatus.CREATED).body("Account details uploaded successfully!");
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload account details");
+        }
     }
 
     @GetMapping("/{id}")

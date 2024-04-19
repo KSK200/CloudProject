@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,8 +29,14 @@ public class ReviewController {
     }
 
     @PostMapping("/")
-    public Review createrReview(@RequestBody Review user) {
-        return ReviewService.createReview(user);
+    public ResponseEntity<String> createReview(@RequestBody Review review) {
+        // Assuming ReviewService.createReview returns the created review
+        Review createdReview = ReviewService.createReview(review);
+        if (createdReview != null) {
+            return ResponseEntity.status(HttpStatus.CREATED).body("Review has been given successfully!");
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to create review");
+        }
     }
 
     @GetMapping("/{catererId}")

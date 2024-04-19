@@ -3,9 +3,13 @@ package com.THBS.cloudkitchenapplication.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.THBS.cloudkitchenapplication.DTO.OrderDetailsDTO;
 import com.THBS.cloudkitchenapplication.entity.Customer;
 import com.THBS.cloudkitchenapplication.repository.CustomerRepository;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -28,7 +32,7 @@ public class CustomerService {
         return customerRepository.save(user);
     }
 
-    @SuppressWarnings("null")
+    // @SuppressWarnings("null")
     public Customer updateCustomer(Long id, Customer user) {
         if (customerRepository.existsById(id)) {
             user.setId(id);
@@ -42,12 +46,34 @@ public class CustomerService {
         customerRepository.deleteById(id);
     }
 
-    // public static Customer saveCustomer(Customer customer) {
-    //     // TODO Auto-generated method stub
-    //     throw new UnsupportedOperationException("Unimplemented method 'saveCustomer'");
-    // }
-
     public boolean existsByUsername(String username) {
         return customerRepository.findByUsername(username) != null;
     }
+
+    public List<OrderDetailsDTO> getOrderDetails(Long orderId) {
+        List<Object[]> resultList = customerRepository.findByOrderId(orderId);
+        List<OrderDetailsDTO> orderDetailsList = new ArrayList<>();
+        for (Object[] result : resultList) {
+            Long orderIdFromQuery = (Long) result[0];
+            Date deliveryDate = (Date) result[1];
+            int numberOfPeople = (int) result[2];
+            Long catererId = (Long) result[3];
+            Long customerId = (Long) result[4];
+            Long dishId = (Long) result[5];
+            String dishName = (String) result[6];
+            
+            OrderDetailsDTO orderDetailsDTO = new OrderDetailsDTO(
+                    orderIdFromQuery,
+                    deliveryDate,
+                    numberOfPeople,
+                    catererId,
+                    customerId,
+                    dishId,
+                    dishName
+            );
+            orderDetailsList.add(orderDetailsDTO);
+        }
+        return orderDetailsList;
+    }
+    
 }
