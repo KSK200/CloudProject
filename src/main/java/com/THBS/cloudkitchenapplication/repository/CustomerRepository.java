@@ -1,9 +1,11 @@
 package com.THBS.cloudkitchenapplication.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.THBS.cloudkitchenapplication.entity.Customer;
@@ -23,6 +25,36 @@ public interface CustomerRepository extends JpaRepository<Customer,Long>{
         "FROM orders o " +
         "LEFT JOIN dish d ON o.id = d.order_id " +
         "WHERE o.id = :orderId", nativeQuery = true)
-List<Object[]> findByOrderId(Long orderId);
+    List<Map<String, Object>> findByOrderId(Long orderId);
+
+    @Query(value = "SELECT " +
+            "o.id AS orderId, " +
+            "o.delivery_date AS deliveryDate, " +
+            "o.number_of_people AS numberOfPeople, " +
+            "o.caterer_id AS catererId, " +
+            "o.customer_id AS customerId, " +
+            "d.id AS dishId, " +
+            "d.name AS dishName " +
+            "FROM orders o " +
+            "LEFT JOIN dish d ON o.id = d.order_id", nativeQuery = true)
+    List<Map<String, Object>> findAllOrderDetails();
+
+
+    @Query("SELECT " +
+            "    o.id AS orderId, " +
+            "    o.deliveryDate AS deliveryDate, " +
+            "    o.numberOfPeople AS numberOfPeople, " +
+            "    d.name AS dishName, " +
+            "    os.status AS orderStatus, " +
+            "    os.price AS orderStatusPrice " +
+            "FROM " +
+            "    Order o " +
+            "LEFT JOIN " +
+            "    o.dishes d " +
+            "LEFT JOIN " +
+            "    o.orderStatus os " +
+            "WHERE " +
+            "    o.customer.id = :customerId")
+    List<Map<String, Object>> findAllOrderDetailsByCustomerId(@Param("customerId") Long customerId);
 
 }

@@ -54,7 +54,23 @@ public class CustomerController {
     }
 
     @GetMapping("/orders/{orderId}")
-    public List<OrderDetailsDTO> getOrderDetails(@PathVariable Long orderId) {
-        return userService.getOrderDetails(orderId);
+    public ResponseEntity<OrderDetailsDTO> getOrderDetails(@PathVariable Long orderId) {
+        List<OrderDetailsDTO> orderDetails = userService.findByOrderId(orderId);
+        if (orderDetails.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(orderDetails.get(0)); // Assuming the list contains only one order
     }
+
+    @GetMapping("/allorders")
+    public ResponseEntity<List<OrderDetailsDTO>> findAllOrderDetail() {
+        List<OrderDetailsDTO> orderDetails = userService.findAllOrderDetails();
+        if (orderDetails.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(orderDetails);
+    }
+
+
+
 }
