@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.THBS.cloudkitchenapplication.DTO.CatererOrdersDTO;
 import com.THBS.cloudkitchenapplication.entity.Caterer;
 import com.THBS.cloudkitchenapplication.service.CatererService;
 @RestController
@@ -55,5 +56,11 @@ public class CatererController {
     @DeleteMapping("/{id}")
     public void deleteCaterer(@PathVariable Long id) {
         userService.deleteCaterer(id);
+    }
+
+    @GetMapping("/orderdetails/{catererId}")
+    public List<CatererOrdersDTO> getOrdersByCustomerAndCaterer(
+            @PathVariable("catererId") Long catererId) {
+        return userService.getOrdersByCaterer(catererId);
     }
 }

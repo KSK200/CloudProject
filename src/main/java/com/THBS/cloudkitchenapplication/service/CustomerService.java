@@ -1,5 +1,6 @@
 package com.THBS.cloudkitchenapplication.service;
 
+import com.THBS.cloudkitchenapplication.DTO.CustomerOrderDTO;
 import com.THBS.cloudkitchenapplication.DTO.DishesDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import com.THBS.cloudkitchenapplication.entity.Customer;
 import com.THBS.cloudkitchenapplication.repository.CustomerRepository;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -118,6 +120,35 @@ public class CustomerService {
         return new ArrayList<>(orderDetailsMap.values());
     }
 
-
+    public List<CustomerOrderDTO> getOrdersByCustomerAndCaterer(Long customerId, Long catererId) {
+        List<Object[]> results = customerRepository.getOrdersWithDishesByCustomerAndCaterer(customerId, catererId);
+        Map<Long, CustomerOrderDTO> orderMap = new HashMap<>();
+        
+        for (Object[] row : results) {
+            Long orderId = ((Number) row[0]).longValue();
+            String customerName = (String) row[1];
+            String catererName = (String) row[2];
+            Date deliveryDateSQL = (Date) row[3]; // Retrieve as java.sql.Date
+            LocalDate deliveryDate = deliveryDateSQL.toLocalDate(); // Convert to LocalDate
+            int numberOfPeople = ((Number) row[4]).intValue();
+            double price = ((Number) row[5]).doubleValue(); // Convert to double
+            String orderStatus = (String) row[6];
+            Long dishId = ((Number) row[7]).longValue();
+            String dishName = (String) row[8];
+            
+            // If the order doesn't exist in the map, create a new one
+            orderMap.putIfAbsent(orderId, new CustomerOrderDTO(orderId, customerName, catererName, deliveryDate, numberOfPeople, price, orderStatus, new ArrayList<>()));
+            
+            // Get the order from the map
+            CustomerOrderDTO orderDTO = orderMap.get(orderId);
+            
+            // Create a new DishesDTO object and add it to the list of dishes for the order
+            DishesDTO dishesDTO = new DishesDTO(dishId, dishName);
+            orderDTO.getDishes().add(dishesDTO);
+        }
+        
+        // Return the values (orders) from the map
+        return new ArrayList<>(orderMap.values());
+    }
 
 }
