@@ -73,4 +73,10 @@ public class ReviewController {
     public List<ReviewByRatingDTO> getReviewsByRating() {
         return ReviewService.getReviewsByRating();
     }
+
+    @Operation(summary = "This is used to all the all reviews of caterer based on catererID")
+    @GetMapping("/ratings/{catererID}")
+    public List<ReviewByRatingDTO> getReviewsRatingByCateterID(@PathVariable Long catererID) {
+        return ReviewService.getReviewsRatingByCateterID(catererID);
+    }
 }

@@ -15,7 +15,7 @@ public class AccountDetailsDTO {
     private String accountNo;
     private String ifscCode;
     private String upiNumber;
-    
+    private byte[] qrCode;
 
     // Constructors, getters, and setters
 }

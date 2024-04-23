@@ -38,8 +38,6 @@ public class Caterer {
     @OneToMany(mappedBy = "caterer")
     private List<AccountDetails> paymentDetails;
 
-    // @OneToMany(mappedBy = "caterer", cascade = CascadeType.ALL)
-    // private List<Review> reviews = new ArrayList<>();
     
     
 }
