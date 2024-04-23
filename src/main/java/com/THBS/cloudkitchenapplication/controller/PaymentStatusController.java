@@ -15,6 +15,8 @@ import com.THBS.cloudkitchenapplication.DTO.PaymentStatusDTO;
 import com.THBS.cloudkitchenapplication.entity.PaymentStatus;
 import com.THBS.cloudkitchenapplication.service.PaymentStatusService;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @RestController
 @RequestMapping("/paymentstatus")
 public class PaymentStatusController {
@@ -22,6 +24,7 @@ public class PaymentStatusController {
     @Autowired
     private PaymentStatusService paymentStatusService;
 
+    @Operation(summary = "This is used to Update Payment Status based on OrderID")
     @PutMapping("/{orderId}")
     public ResponseEntity<PaymentStatus> updatePaymentStatus(@PathVariable Long orderId, @RequestBody PaymentStatus updatedPaymentStatus) {
         // Check if the paymentStatusId exists
@@ -42,7 +45,7 @@ public class PaymentStatusController {
 
         return ResponseEntity.ok(updatedStatus);
     }
-
+    @Operation(summary = "This is used to get Payment Status By Order ID")    
     @GetMapping("/{orderId}")
     public ResponseEntity<PaymentStatusDTO> getPaymentStatusByOrderId(@PathVariable Long orderId) {
     Optional<PaymentStatus> paymentStatusOptional = paymentStatusService.getPaymentStatusByOrderId(orderId);

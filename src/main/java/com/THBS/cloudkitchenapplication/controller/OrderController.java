@@ -10,6 +10,8 @@ import com.THBS.cloudkitchenapplication.DTO.PaymentDetailsDTO;
 import com.THBS.cloudkitchenapplication.entity.Order;
 import com.THBS.cloudkitchenapplication.service.OrderService;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,6 +21,7 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+    @Operation(summary = "This is used to store all the orders")
     @PostMapping("/")
     public ResponseEntity<String> saveOrder(@RequestBody Order order) {
         Order savedOrder = orderService.placeOrder(order);
@@ -28,6 +31,7 @@ public class OrderController {
         return new ResponseEntity<>("Order has been successfully placed", HttpStatus.CREATED);
     }
     
+    @Operation(summary = "This is used to get all orders by customer ID")
     @GetMapping("/{customerId}")
     public ResponseEntity<List<OrderDTO>> getOrdersByCustomerId(@PathVariable Long customerId) {
         List<Order> orders = orderService.getOrdersByCustomerId(customerId);
@@ -49,6 +53,7 @@ public class OrderController {
 
         return ResponseEntity.ok(orderDTOs);
     }
+    @Operation(summary = "This is used to get all Orders")
     @GetMapping("/")
     public ResponseEntity<List<OrderDTO>> getAllOrders() {
         List<Order> orders = orderService.getAllOrders();
@@ -70,6 +75,7 @@ public class OrderController {
 
         return ResponseEntity.ok(orderDTOs);
     }
+    @Operation(summary = "This is used to get all orders based order status ")
     @GetMapping("/Account/{customerId}/")
     public List<PaymentDetailsDTO> getOrdersByCustomerAndCaterer(
             @PathVariable("customerId") Long customerId){

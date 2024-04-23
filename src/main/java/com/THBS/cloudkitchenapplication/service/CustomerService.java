@@ -6,14 +6,10 @@ import com.THBS.cloudkitchenapplication.DTO.DishesDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import com.THBS.cloudkitchenapplication.DTO.OrderDetailsDTO;
 import com.THBS.cloudkitchenapplication.entity.Customer;
 import com.THBS.cloudkitchenapplication.repository.CustomerRepository;
-
-import io.micrometer.core.ipc.http.HttpSender.Response;
 import jakarta.persistence.EntityNotFoundException;
-
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;

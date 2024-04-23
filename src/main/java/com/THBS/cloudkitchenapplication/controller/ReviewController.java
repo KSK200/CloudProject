@@ -18,17 +18,21 @@ import com.THBS.cloudkitchenapplication.DTO.ReviewDTO;
 import com.THBS.cloudkitchenapplication.entity.Review;
 import com.THBS.cloudkitchenapplication.service.ReviewService;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @RestController
 @RequestMapping("/Reviews")
 public class ReviewController {
     @Autowired
     private ReviewService ReviewService;
 
+    @Operation(summary = "This is used to get all the reviews")
     @GetMapping("/")
     public List<Review> getAllReviews() {
         return ReviewService.getAllReviews();
     }
 
+    @Operation(summary = "This is used to create the Review for Caterer")
     @PostMapping("/")
     public ResponseEntity<String> createReview(@RequestBody Review review) {
         // Assuming ReviewService.createReview returns the created review
@@ -40,6 +44,7 @@ public class ReviewController {
         }
     }
 
+    @Operation(summary = "This is used to get Reviews Based on Caterer ID")
     @GetMapping("/{catererId}")
     public ResponseEntity<List<ReviewDTO>> getReviewsByCatererId(@PathVariable Long catererId) {
         List<Review> reviews = ReviewService.getReviewsByCatererId(catererId);
@@ -63,6 +68,7 @@ public class ReviewController {
         return ResponseEntity.ok(reviewDTOs);
     }
 
+    @Operation(summary = "This is used to all the review given according to rating in Descending order")
     @GetMapping("/ratings")
     public List<ReviewByRatingDTO> getReviewsByRating() {
         return ReviewService.getReviewsByRating();

@@ -12,12 +12,15 @@ import com.THBS.cloudkitchenapplication.DTO.DishDTO;
 import com.THBS.cloudkitchenapplication.entity.Dish;
 import com.THBS.cloudkitchenapplication.service.DishService;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @RestController
 @RequestMapping("/dishes")
 public class DishController {
     @Autowired
     private DishService dishService;
 
+    @Operation(summary = "This is used to save all dishes with that order")
     @PostMapping("/")
     public ResponseEntity<Dish> saveDish(@RequestBody Dish dish) {
         Dish savedDish = dishService.saveDish(dish);
@@ -29,6 +32,7 @@ public class DishController {
         this.dishService = dishService;
     }
 
+    @Operation(summary = "This is used to get all dishes")
     @GetMapping("/")
     public List<DishDTO> getAllDishes() {
         List<Dish> dishes = dishService.getAllDishes();

@@ -11,6 +11,8 @@ import com.THBS.cloudkitchenapplication.DTO.AccountDetailsDTO;
 import com.THBS.cloudkitchenapplication.entity.AccountDetails;
 import com.THBS.cloudkitchenapplication.service.AccountDetailsService;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 
 @RestController
 @RequestMapping("/Account")
@@ -18,11 +20,12 @@ public class AccountDetailsController {
     @Autowired
     private AccountDetailsService userService;
 
+    @Operation(summary = "This is used to get all caterer account details")
     @GetMapping("/")
     public List<AccountDetails> getAllPayment() {
         return userService.getAllPaymentDetails();
     }
-    
+    @Operation(summary = "This is used to create caterer account details")
     @PostMapping("/")
     public ResponseEntity<String> createPaymentDetails(@RequestBody AccountDetails accountDetails) {
         // Assuming userService.createPaymentDetails returns the created account details
@@ -34,6 +37,7 @@ public class AccountDetailsController {
         }
     }
 
+    @Operation(summary = "This is used to get caterer account details by caterer id")
     @GetMapping("/{id}")
     public ResponseEntity<AccountDetailsDTO> getPaymentDetailsById(@PathVariable Long id) {
         AccountDetails paymentDetails = userService.findByCatererID(id);

@@ -1,8 +1,6 @@
 package com.THBS.cloudkitchenapplication.controller;
 
-import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,10 +9,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.THBS.cloudkitchenapplication.DTO.OrderStatusDTO;
 import com.THBS.cloudkitchenapplication.entity.OrderStatus;
 import com.THBS.cloudkitchenapplication.service.OrderStatusService;
+
+import io.swagger.v3.oas.annotations.Operation;
 
 @RestController
 @RequestMapping("/orderstatus")
@@ -23,6 +22,7 @@ public class OrderStatusController {
     @Autowired
     private OrderStatusService orderStatusService;
 
+    @Operation(summary = "This is used to update Order Status")
     @PutMapping("/{orderId}")
     public ResponseEntity<String> updateOrderStatus(@PathVariable Long orderId,
             @RequestBody OrderStatus updatedOrderStatus) {
@@ -31,7 +31,7 @@ public class OrderStatusController {
         Optional<OrderStatus> existingOrderStatusOptional = orderStatusService.findByOrderId(orderId);
         if (!existingOrderStatusOptional.isPresent()) {
             successMessage = "No orders found with ID: " + orderId;
-              return ResponseEntity.ok(successMessage);
+            return ResponseEntity.ok(successMessage);
         }
 
         // Get the existing orderStatus
@@ -49,6 +49,7 @@ public class OrderStatusController {
         return ResponseEntity.ok(successMessage);
     }
 
+    @Operation(summary = "This is used to get Order Status based on the order ID")
     @GetMapping("/{orderId}")
     public ResponseEntity<OrderStatusDTO> getOrderStatusByOrderId(@PathVariable Long orderId) {
         Optional<OrderStatus> orderStatusOptional = orderStatusService.getOrderStatusByOrderId(orderId);
@@ -66,7 +67,5 @@ public class OrderStatusController {
 
         return ResponseEntity.ok(orderStatusDTO);
     }
-    
-
 
 }

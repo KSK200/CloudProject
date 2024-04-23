@@ -1,12 +1,10 @@
 package com.THBS.cloudkitchenapplication.service;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.THBS.cloudkitchenapplication.DTO.PaymentDetailsDTO;
 import com.THBS.cloudkitchenapplication.entity.OrderStatus;
 import com.THBS.cloudkitchenapplication.repository.OrderStatusRepository;
 
