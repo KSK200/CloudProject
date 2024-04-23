@@ -9,13 +9,13 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AccountDetailsDTO {
-
-    private Long id;
-    private String accountNo;
+public class PaymentDetailsDTO {
+    private Long customerId;
+    private String catererName;
+    private String catererPhoneNumber;
+    private String accountNumber;
     private String ifscCode;
     private String upiNumber;
-    
+    private double orderPrice;
 
-    // Constructors, getters, and setters
 }

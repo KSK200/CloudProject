@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.THBS.cloudkitchenapplication.DTO.OrderDTO;
+import com.THBS.cloudkitchenapplication.DTO.PaymentDetailsDTO;
 import com.THBS.cloudkitchenapplication.entity.Order;
 import com.THBS.cloudkitchenapplication.service.OrderService;
 
@@ -69,7 +70,11 @@ public class OrderController {
 
         return ResponseEntity.ok(orderDTOs);
     }
-
+    @GetMapping("/Account/{customerId}/")
+    public List<PaymentDetailsDTO> getOrdersByCustomerAndCaterer(
+            @PathVariable("customerId") Long customerId){
+        return orderService.getAccountDetailsByOrderStatus(customerId);
+    }
     // Other controller methods as needed
 }
 

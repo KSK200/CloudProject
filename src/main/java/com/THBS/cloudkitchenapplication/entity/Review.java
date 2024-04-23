@@ -1,5 +1,6 @@
 package com.THBS.cloudkitchenapplication.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
@@ -26,7 +27,7 @@ public class Review {
     private Customer customer;
     
     private String review;
-    private int rating;
-    private LocalDateTime reviewDate;
+    private double rating;
+    private LocalDate reviewDate;
 
 }

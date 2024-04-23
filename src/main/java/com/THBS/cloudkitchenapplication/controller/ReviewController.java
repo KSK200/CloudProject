@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.THBS.cloudkitchenapplication.DTO.ReviewByRatingDTO;
 import com.THBS.cloudkitchenapplication.DTO.ReviewDTO;
 import com.THBS.cloudkitchenapplication.entity.Review;
 import com.THBS.cloudkitchenapplication.service.ReviewService;
@@ -60,5 +61,10 @@ public class ReviewController {
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(reviewDTOs);
+    }
+
+    @GetMapping("/ratings")
+    public List<ReviewByRatingDTO> getReviewsByRating() {
+        return ReviewService.getReviewsByRating();
     }
 }

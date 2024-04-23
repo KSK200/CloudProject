@@ -2,6 +2,7 @@ package com.THBS.cloudkitchenapplication.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.THBS.cloudkitchenapplication.DTO.PaymentDetailsDTO;
 import com.THBS.cloudkitchenapplication.entity.Dish;
 import com.THBS.cloudkitchenapplication.entity.Order;
 import com.THBS.cloudkitchenapplication.entity.OrderStatus;
@@ -11,6 +12,7 @@ import com.THBS.cloudkitchenapplication.repository.OrderRepository;
 import com.THBS.cloudkitchenapplication.repository.OrderStatusRepository;
 import com.THBS.cloudkitchenapplication.repository.PaymentStatusRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -57,6 +59,23 @@ public class OrderService {
         return orderRepository.findAll();
     }
 
-    // Other service methods as needed
+    public List<PaymentDetailsDTO> getAccountDetailsByOrderStatus(Long customerId) {
+        List<Object[]> results = orderRepository.findDistinctByCustomerAndStatusAccepted(customerId);
+        List<PaymentDetailsDTO> paymentDetailsDTO = new ArrayList<>();
+        
+        for (Object[] row : results) {
+            Long orderId = ((Number) row[0]).longValue();
+            String catererName = (String) row[1];
+            String catererPhoneNumber = (String) row[2];
+            String accountNumber = (String) row[3];
+            String ifscCode = (String) row[4];
+            String upiNumber = (String) row[5];
+            double price = (double) row[6];
+            
+            PaymentDetailsDTO orderDetails = new PaymentDetailsDTO(orderId, catererName, catererPhoneNumber, accountNumber, ifscCode, upiNumber, price);
+            paymentDetailsDTO.add(orderDetails);
+        }
+        
+        return paymentDetailsDTO;
+    }
 }
-
