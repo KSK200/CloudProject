@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.THBS.cloudkitchenapplication.DTO.CustomerOrderDTO;
+import com.THBS.cloudkitchenapplication.DTO.CustomerPatchDTO;
 import com.THBS.cloudkitchenapplication.DTO.OrderDetailsDTO;
 import com.THBS.cloudkitchenapplication.entity.Customer;
 import com.THBS.cloudkitchenapplication.service.CustomerService;
@@ -78,6 +79,13 @@ public class CustomerController {
             @PathVariable("customerId") Long customerId,
             @PathVariable("catererId") Long catererId) {
         return userService.getOrdersByCustomerAndCaterer(customerId, catererId);
+    }
+
+    @Operation(summary = "This is used to update customer username and password based on customer ID")
+    @PatchMapping("/update/{customerId}")
+    public ResponseEntity<Void> updateCustomer(@PathVariable Long customerId, @RequestBody CustomerPatchDTO patchDTO) {
+        userService.updateCustomerusernamepassword(customerId, patchDTO);
+        return ResponseEntity.noContent().build();
     }
 
 }

@@ -9,12 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
-public class DishDTO {
-    private Long id;
-    private String name;
-    private Long orderId;
-
-    // Constructors, getters, and setters
-
+public class CustomerPatchDTO {
+    private String userName;
+    private String password;
 }

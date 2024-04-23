@@ -1,13 +1,18 @@
 package com.THBS.cloudkitchenapplication.service;
 
 import com.THBS.cloudkitchenapplication.DTO.CustomerOrderDTO;
+import com.THBS.cloudkitchenapplication.DTO.CustomerPatchDTO;
 import com.THBS.cloudkitchenapplication.DTO.DishesDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.THBS.cloudkitchenapplication.DTO.OrderDetailsDTO;
 import com.THBS.cloudkitchenapplication.entity.Customer;
 import com.THBS.cloudkitchenapplication.repository.CustomerRepository;
+
+import io.micrometer.core.ipc.http.HttpSender.Response;
+import jakarta.persistence.EntityNotFoundException;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -150,5 +155,20 @@ public class CustomerService {
         // Return the values (orders) from the map
         return new ArrayList<>(orderMap.values());
     }
+    public void updateCustomerusernamepassword(Long customerId, CustomerPatchDTO patchDTO) {
+        Customer customer = customerRepository.findById(customerId)
+            .orElseThrow(() -> new EntityNotFoundException("Customer not found with id: " + customerId));
+        
+        if (patchDTO.getUserName() != null) {
+            customer.setUsername(patchDTO.getUserName());
+        }
+        if (patchDTO.getPassword() != null) {
+            customer.setPassword(patchDTO.getPassword());
+        }
 
+        customerRepository.save(customer);
+        ResponseEntity.ok("UserName and Password updated successfully");
+    }
 }
+
+

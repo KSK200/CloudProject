@@ -8,12 +8,16 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.THBS.cloudkitchenapplication.DTO.CatererOrdersDTO;
+import com.THBS.cloudkitchenapplication.DTO.CatererPatchDTO;
 import com.THBS.cloudkitchenapplication.DTO.DishesDTO;
 import com.THBS.cloudkitchenapplication.entity.Caterer;
 import com.THBS.cloudkitchenapplication.repository.CatererRepository;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class CatererService {
@@ -81,6 +85,22 @@ public class CatererService {
         
         // Return the values (orders) from the map
         return new ArrayList<>(orderMap.values());
+    }
+
+
+    public void updateCatererusernamepassword(Long cateterId, CatererPatchDTO patchDTO) {
+        Caterer caterer = catererRepository.findById(cateterId)
+            .orElseThrow(() -> new EntityNotFoundException("Customer not found with id: " + cateterId));
+       
+        if (patchDTO.getUsername() != null) {
+            caterer.setUsername(patchDTO.getUsername());
+        }
+        if (patchDTO.getPassword() != null) {
+            caterer.setPassword(patchDTO.getPassword());
+        }
+
+        catererRepository.save(caterer);
+        ResponseEntity.ok("UserName and Password updated successfully");
     }
 
 }
