@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -39,22 +40,22 @@ public class AccountDetailsController {
         }
     }
 
-    @Operation(summary = "This is used to get caterer account details by caterer id")
-    @GetMapping("/{id}")
-    public ResponseEntity<AccountDetailsDTO> getPaymentDetailsById(@PathVariable Long id) {
-        AccountDetails paymentDetails = userService.findByCatererID(id);
-        if (paymentDetails == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    // @Operation(summary = "This is used to get caterer account details by caterer id")
+    // @GetMapping("/{id}")
+    // public ResponseEntity<AccountDetailsDTO> getPaymentDetailsById(@PathVariable Long id) {
+    //     AccountDetails paymentDetails = userService.findByCatererID(id);
+    //     if (paymentDetails == null) {
+    //         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    //     }
         
-        AccountDetailsDTO paymentDetailsDTO = new AccountDetailsDTO();
-        paymentDetailsDTO.setId(paymentDetails.getId());
-        paymentDetailsDTO.setAccountNo(paymentDetails.getAccountNo());
-        paymentDetailsDTO.setIfscCode(paymentDetails.getIfscCode());
-        paymentDetailsDTO.setUpiNumber(paymentDetails.getUpiNumber());
+    //     AccountDetailsDTO paymentDetailsDTO = new AccountDetailsDTO();
+    //     paymentDetailsDTO.setId(paymentDetails.getId());
+    //     paymentDetailsDTO.setAccountNo(paymentDetails.getAccountNo());
+    //     paymentDetailsDTO.setIfscCode(paymentDetails.getIfscCode());
+    //     paymentDetailsDTO.setUpiNumber(paymentDetails.getUpiNumber());
         
-        return new ResponseEntity<>(paymentDetailsDTO, HttpStatus.OK);
-    }
+    //     return new ResponseEntity<>(paymentDetailsDTO, HttpStatus.OK);
+    // }
 
     @Operation(summary = "This is used to Save Caterer account details")
     @PostMapping("/save")
@@ -67,10 +68,22 @@ public class AccountDetailsController {
     ) {
         try {
             userService.saveAccountDetails(catererId, accountNo, ifscCode, upiNumber, image);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok().body("Account Details Saved Successfully");
         } catch (IOException e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Unable to Save Account Details");
         }
+    }
+
+    
+    @GetMapping("/{catererId}")
+    public ResponseEntity<?> getAccountDetailsByCatererId(@PathVariable Long catererId) {
+        AccountDetailsDTO accountDetailsDTO = userService.getAccountDetailsByCatererId(catererId);
+
+        if (accountDetailsDTO == null) {
+            return ((BodyBuilder) ResponseEntity.notFound()).body("No Account details found with CatererID  "+catererId);
+        }
+
+        return ResponseEntity.ok(accountDetailsDTO);
     }
 }

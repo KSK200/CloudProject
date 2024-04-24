@@ -1,5 +1,6 @@
 package com.THBS.cloudkitchenapplication.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,9 +30,8 @@ public class AccountDetails {
     private String accountNo;
     private String ifscCode;
     private String upiNumber;
-
     @Lob
-    private byte[] image;
+    @Column(name = "qrcode", columnDefinition = "BLOB")
+    private byte[] qrcode; // Store images as byte arrays
 
-    
 }
