@@ -39,10 +39,10 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
             "LEFT JOIN dish d ON o.id = d.order_id", nativeQuery = true)
     List<Map<String, Object>> findAllOrderDetails();
 
-    @Query("SELECT " +
+    @Query(value="SELECT " +
             "    o.id AS orderId, " +
-            "    o.deliveryDate AS deliveryDate, " +
-            "    o.numberOfPeople AS numberOfPeople, " +
+            "    o.delivery_date AS deliveryDate, " +
+            "    o.number_of_people AS numberOfPeople, " +
             "    d.name AS dishName, " +
             "    os.status AS orderStatus, " +
             "    os.price AS orderStatusPrice " +
@@ -53,7 +53,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
             "LEFT JOIN " +
             "    o.orderStatus os " +
             "WHERE " +
-            "    o.customer.id = :customerId")
+            "    o.customer.id = :customerId",nativeQuery=true)
     List<Map<String, Object>> findAllOrderDetailsByCustomerId(@Param("customerId") Long customerId);
 
     @Query(value = "SELECT " +
