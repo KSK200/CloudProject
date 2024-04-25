@@ -22,7 +22,7 @@ public interface CatererRepository extends JpaRepository<Caterer, Long> {
             "o.number_of_people AS number_of_people, " +
             "od.id AS dish_id, " +
             "od.name AS dish_name " +
-            "FROM Orders o " +
+            "FROM orders o " +
             "INNER JOIN order_status os ON o.id = os.order_id " +
             "INNER JOIN dish od ON o.id = od.order_id " +
             "INNER JOIN customer c ON o.customer_id = c.id " +

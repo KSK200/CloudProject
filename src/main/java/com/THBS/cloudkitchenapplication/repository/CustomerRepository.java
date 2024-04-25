@@ -47,7 +47,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
             "    os.status AS orderStatus, " +
             "    os.price AS orderStatusPrice " +
             "FROM " +
-            "    Order o " +
+            "    order o " +
             "LEFT JOIN " +
             "    o.dishes d " +
             "LEFT JOIN " +
@@ -67,7 +67,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
             "    od.id AS dish_id, " +
             "    od.name AS dish_name " +
             "FROM " +
-            "    Orders o " +
+            "    orders o " +
             "INNER JOIN " +
             "    order_status os ON o.id = os.order_id " +
             "INNER JOIN " +

@@ -22,7 +22,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             "    ad.upi_number AS upi_number, " +
             "    os.price AS order_price " +
             "FROM " +
-            "    Orders o " +
+            "    orders o " +
             "INNER JOIN " +
             "    order_status os ON o.id = os.order_id " +
             "INNER JOIN " +
