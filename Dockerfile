@@ -13,6 +13,6 @@ WORKDIR /app
 # Copy the JAR file from the builder stage to the final image
 COPY --from=builder /app/target/*.jar app.jar
 # Expose the port your app runs on
-EXPOSE 2222
+EXPOSE 1000
 # Command to run the application
 CMD ["java", "-jar", "app.jar"]
